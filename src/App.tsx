@@ -1,10 +1,12 @@
 import React from 'react';
-import { View, StatusBar } from 'react-native';
+import { StatusBar } from 'react-native';
+
+import SignIn from './pages/SignIn';
 
 const App: React.FC = () => (
   <>
-    <StatusBar backgroundColor="#181818" barStyle="light-content" />
-    <View style={{ flex: 1, backgroundColor: '#181818' }} />
+    <StatusBar backgroundColor="#1F1F1F" barStyle="light-content" />
+    <SignIn />
   </>
 );
 
