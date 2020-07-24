@@ -131,6 +131,7 @@ android {
     defaultConfig {
         applicationId "com.goparking"
         minSdkVersion rootProject.ext.minSdkVersion
+        missingDimensionStrategy 'react-native-camera', 'general' // <--- Bruno insert this line
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"

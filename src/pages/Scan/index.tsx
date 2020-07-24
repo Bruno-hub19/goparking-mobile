@@ -1,5 +1,6 @@
 import React from 'react';
 import { Image } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import Button from '../../components/Button';
 
@@ -9,6 +10,8 @@ import qrcodeImage from '../../assets/qrcode.png';
 import { Container, HelloText, InstructionText } from './styles';
 
 const Scan: React.FC = () => {
+  const navigation = useNavigation();
+
   return (
     <Container>
       <Image source={logoImg} />
@@ -21,7 +24,9 @@ const Scan: React.FC = () => {
 
       <Image source={qrcodeImage} style={{ marginBottom: 60 }} />
 
-      <Button onPress={() => console.log('Abrir câmera')}>Escanear</Button>
+      <Button onPress={() => navigation.navigate('Scanner')}>
+        Abrir scanner
+      </Button>
     </Container>
   );
 };
