@@ -15,13 +15,11 @@ import Input from '../../components/Input';
 import {
   Container,
   ContentTitle,
-  ForgotPassword,
-  ForgotPasswordText,
-  CreateAccountButton,
-  CreateAccountButtonText,
+  SignInButton,
+  SignInButtonText,
 } from './styles';
 
-const SignIn: React.FC = () => {
+const SignUp: React.FC = () => {
   const navigation = useNavigation();
 
   return (
@@ -37,14 +35,28 @@ const SignIn: React.FC = () => {
           <Container>
             <Image source={logoImg} />
 
-            <ContentTitle>Faça seu logon</ContentTitle>
+            <ContentTitle>Faça seu cadastro</ContentTitle>
 
+            <Input
+              icon="user"
+              name="name"
+              placeholder="Digite seu nome"
+              autoCorrect={false}
+              autoCapitalize="words"
+            />
             <Input
               icon="mail"
               name="email"
               placeholder="Digite seu e-mail"
               keyboardType="email-address"
+              autoCorrect={false}
               autoCapitalize="none"
+            />
+            <Input
+              icon="smartphone"
+              name="phone"
+              placeholder="Digite seu telefone"
+              keyboardType="numeric"
               autoCorrect={false}
             />
             <Input
@@ -55,20 +67,16 @@ const SignIn: React.FC = () => {
               secureTextEntry
             />
 
-            <Button onPress={() => navigation.navigate('Scan')}>Entrar</Button>
-
-            <ForgotPassword>
-              <ForgotPasswordText>Esqueci minha senha</ForgotPasswordText>
-            </ForgotPassword>
+            <Button>Cadastrar</Button>
           </Container>
         </ScrollView>
       </KeyboardAvoidingView>
 
-      <CreateAccountButton onPress={() => navigation.navigate('SignUp')}>
-        <CreateAccountButtonText>Cadastrar</CreateAccountButtonText>
-      </CreateAccountButton>
+      <SignInButton onPress={() => navigation.navigate('SignIn')}>
+        <SignInButtonText>Login</SignInButtonText>
+      </SignInButton>
     </>
   );
 };
 
-export default SignIn;
+export default SignUp;
