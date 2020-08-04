@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useCallback } from 'react';
 import {
   Image,
   KeyboardAvoidingView,
@@ -6,6 +6,8 @@ import {
   Platform,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { FormHandles } from '@unform/core';
+import { Form } from '@unform/mobile';
 
 import logoImg from '../../assets/logo.png';
 
@@ -22,7 +24,15 @@ import {
 } from './styles';
 
 const SignIn: React.FC = () => {
+  const formRef = useRef<FormHandles>(null);
   const navigation = useNavigation();
+
+  const handleSubmit = useCallback((data, { reset }) => {
+    console.log(data);
+    console.log('[FEATURE]: Adicionar o hook para autenticação de usuário');
+
+    reset();
+  }, []);
 
   return (
     <>
@@ -39,23 +49,27 @@ const SignIn: React.FC = () => {
 
             <ContentTitle>Faça seu logon</ContentTitle>
 
-            <Input
-              icon="mail"
-              name="email"
-              placeholder="Digite seu e-mail"
-              keyboardType="email-address"
-              autoCapitalize="none"
-              autoCorrect={false}
-            />
-            <Input
-              icon="lock"
-              name="password"
-              placeholder="Digite sua senha"
-              returnKeyType="next"
-              secureTextEntry
-            />
+            <Form ref={formRef} onSubmit={handleSubmit}>
+              <Input
+                icon="mail"
+                name="email"
+                placeholder="Digite seu e-mail"
+                keyboardType="email-address"
+                autoCapitalize="none"
+                autoCorrect={false}
+              />
+              <Input
+                icon="lock"
+                name="password"
+                placeholder="Digite sua senha"
+                returnKeyType="next"
+                secureTextEntry
+              />
+            </Form>
 
-            <Button onPress={() => navigation.navigate('Scan')}>Entrar</Button>
+            <Button onPress={() => formRef.current?.submitForm()}>
+              Entrar
+            </Button>
 
             <ForgotPassword>
               <ForgotPasswordText>Esqueci minha senha</ForgotPasswordText>
