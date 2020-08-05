@@ -10,7 +10,7 @@ const Scanner: React.FC = () => {
   const onSuccess = useCallback(
     (e: Event) => {
       navigation.navigate('Confirmation', {
-        testing: e.data,
+        parking_id: e.data,
       });
     },
     [navigation],
