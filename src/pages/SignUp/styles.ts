@@ -10,8 +10,8 @@ export const Container = styled.View`
 
 export const ContentTitle = styled.Text`
   font-size: 20px;
+  font-family: 'Roboto-Medium';
   color: #fff;
-  font-weight: 500;
   margin: 40px 0 24px;
 `;
 
@@ -30,7 +30,7 @@ export const SignInButton = styled.TouchableOpacity`
 
 export const SignInButtonText = styled.Text`
   font-size: 15px;
+  font-family: 'Roboto-Medium';
   color: #29c872;
-  font-weight: bold;
   margin-right: 10px;
 `;

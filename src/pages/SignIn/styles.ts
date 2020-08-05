@@ -11,7 +11,7 @@ export const Container = styled.View`
 export const ContentTitle = styled.Text`
   font-size: 20px;
   color: #fff;
-  font-weight: 500;
+  font-family: 'Roboto-Medium';
   margin: 40px 0 24px;
 `;
 
@@ -21,6 +21,7 @@ export const ForgotPassword = styled.TouchableOpacity`
 
 export const ForgotPasswordText = styled.Text`
   font-size: 16px;
+  font-family: 'Roboto-Medium';
   color: #7d7d7d;
 `;
 
@@ -39,7 +40,7 @@ export const CreateAccountButton = styled.TouchableOpacity`
 
 export const CreateAccountButtonText = styled.Text`
   font-size: 15px;
+  font-family: 'Roboto-Medium';
   color: #29c872;
-  font-weight: bold;
   margin-right: 10px;
 `;
