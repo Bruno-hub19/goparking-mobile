@@ -15,31 +15,26 @@ const AppRoutes: React.FC = () => {
   return (
     <AppStack.Navigator
       screenOptions={{
-        ...TransitionPresets.ModalSlideFromBottomIOS,
+        headerStyle: {
+          backgroundColor: '#1f1f1f',
+          elevation: 0,
+        },
+        headerTitle: '',
+        headerTintColor: '#fff',
+        ...TransitionPresets.SlideFromRightIOS,
       }}
     >
       <AppStack.Screen
         name="Scan"
         component={Scan}
         options={{
-          headerStyle: {
-            backgroundColor: '#1f1f1f',
-            elevation: 0,
-          },
-          headerTitle: '',
           headerRight: () => <SignOutButton />,
           headerRightContainerStyle: {
             paddingRight: 30,
           },
         }}
       />
-      <AppStack.Screen
-        name="Scanner"
-        component={Scanner}
-        options={{
-          headerShown: false,
-        }}
-      />
+      <AppStack.Screen name="Scanner" component={Scanner} />
     </AppStack.Navigator>
   );
 };
