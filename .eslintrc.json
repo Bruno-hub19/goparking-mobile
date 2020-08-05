@@ -29,12 +29,16 @@
     "prettier"
   ],
   "rules": {
+    "prettier/prettier": "error",
     "no-console": "off",
+    "no-unused-expressions": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "react/jsx-props-no-spreading": "off",
     "react/prop-types": "off",
+    "react/jsx-one-expression-per-line": "off",
     "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/ban-types": "off",
     "react/jsx-filename-extension": [
       1,
       {
