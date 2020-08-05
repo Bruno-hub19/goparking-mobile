@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '../../hooks/auth';
 import Button from '../../components/Button';
 import logoImg from '../../assets/logo.png';
-import qrcodeImage from '../../assets/qrcode.png';
+import qrcodeImage from '../../assets/qr-code.png';
 
 import { Container, HelloText, InstructionText } from './styles';
 
