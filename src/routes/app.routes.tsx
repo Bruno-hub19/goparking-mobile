@@ -6,6 +6,7 @@ import {
 
 import Scan from '../pages/Scan';
 import Scanner from '../pages/Scanner';
+import { Confirmation } from '../pages/Confirmation';
 
 import { SignOutButton } from '../components/SignOutButton';
 
@@ -21,7 +22,7 @@ const AppRoutes: React.FC = () => {
         },
         headerTitle: '',
         headerTintColor: '#fff',
-        ...TransitionPresets.SlideFromRightIOS,
+        ...TransitionPresets.ModalSlideFromBottomIOS,
       }}
     >
       <AppStack.Screen
@@ -35,6 +36,7 @@ const AppRoutes: React.FC = () => {
         }}
       />
       <AppStack.Screen name="Scanner" component={Scanner} />
+      <AppStack.Screen name="Confirmation" component={Confirmation} />
     </AppStack.Navigator>
   );
 };
