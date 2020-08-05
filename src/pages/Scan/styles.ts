@@ -10,13 +10,14 @@ export const Container = styled.View`
 
 export const HelloText = styled.Text`
   color: #29c872;
+  font-family: 'Roboto-Medium';
   font-size: 25px;
-  font-weight: bold;
   margin: 60px 0 20px;
 `;
 
 export const InstructionText = styled.Text`
   color: #fff;
+  font-family: 'Roboto-Regular';
   font-size: 16px;
   text-align: center;
   max-width: 230px;
