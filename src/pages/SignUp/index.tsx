@@ -4,11 +4,15 @@ import {
   KeyboardAvoidingView,
   ScrollView,
   Platform,
+  Alert,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/mobile';
+import * as Yup from 'yup';
 
+import { getValidationErrors } from '../../utils/getValidationErrors';
+import { api } from '../../services/api';
 import logoImg from '../../assets/logo.png';
 
 import Button from '../../components/Button';
@@ -26,12 +30,43 @@ const SignUp: React.FC = () => {
   const navigation = useNavigation();
 
   const handleSubmit = useCallback(
-    (data, { reset }) => {
-      console.log(data);
+    async (data, { reset }) => {
+      try {
+        const schema = Yup.object().shape({
+          name: Yup.string().required('Campo obrigatório'),
+          email: Yup.string()
+            .email('Digite um email válido')
+            .required('Campo obrigatório'),
+          phone: Yup.string().min(10).required('Campo obrigatório'),
+          password: Yup.string().required('Campo obrigatório'),
+        });
 
-      navigation.navigate('SignIn');
+        await schema.validate(data, {
+          abortEarly: false,
+        });
 
-      reset();
+        await api.post('/user', {
+          name: data.name,
+          email: data.email,
+          phone: Number(data.phone),
+          password: data.password,
+        });
+
+        navigation.navigate('SignIn');
+
+        reset();
+      } catch (err) {
+        if (err instanceof Yup.ValidationError) {
+          const errors = getValidationErrors(err);
+
+          formRef.current?.setErrors(errors);
+        }
+
+        Alert.alert(
+          'Erro ao efetuar o cadastro',
+          'Verifique os dados informados',
+        );
+      }
     },
     [navigation],
   );
@@ -72,7 +107,7 @@ const SignUp: React.FC = () => {
               <Input
                 icon="smartphone"
                 name="phone"
-                placeholder="Digite seu telefone"
+                placeholder="Digite seu telefone com DDD"
                 keyboardType="numeric"
                 autoCorrect={false}
               />
