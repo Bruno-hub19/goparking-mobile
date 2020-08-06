@@ -1,11 +1,11 @@
 import styled, { css } from 'styled-components/native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 
-interface ICustomButtonProps {
+interface IButtonProps {
   isSelected: boolean;
 }
 
-export const Container = styled.TouchableOpacity<ICustomButtonProps>`
+export const Container = styled.TouchableOpacity<IButtonProps>`
   width: 100%;
   height: 70px;
   border-width: 1px;
@@ -25,7 +25,7 @@ export const Container = styled.TouchableOpacity<ICustomButtonProps>`
     `}
 `;
 
-export const ButtonText = styled.Text<ICustomButtonProps>`
+export const ButtonText = styled.Text<IButtonProps>`
   font-family: 'Roboto-Medium';
   font-size: 15px;
   color: #29c872;
@@ -38,7 +38,7 @@ export const ButtonText = styled.Text<ICustomButtonProps>`
 `;
 
 // eslint-disable-next-line prettier/prettier
-export const Icon = styled(FeatherIcon) <ICustomButtonProps>`
+export const Icon = styled(FeatherIcon) <IButtonProps>`
   color: #29c872;
   position: absolute;
   left: 25px;

@@ -3,12 +3,12 @@ import { TouchableOpacityProps } from 'react-native';
 
 import { Container, ButtonText, Icon } from './styles';
 
-interface ButtonProps extends TouchableOpacityProps {
+interface IButtonProps extends TouchableOpacityProps {
   children: string;
   iconName: string;
 }
 
-const SelectButton: React.FC<ButtonProps> = ({
+const SelectButton: React.FC<IButtonProps> = ({
   children,
   iconName,
   ...rest
@@ -20,7 +20,7 @@ const SelectButton: React.FC<ButtonProps> = ({
   }, [isSelected]);
 
   return (
-    <Container {...rest} isSelected={isSelected} onPress={handleSetIsSelected}>
+    <Container isSelected={isSelected} onPress={handleSetIsSelected} {...rest}>
       <Icon name={iconName} size={20} isSelected={isSelected} />
 
       <ButtonText isSelected={isSelected}>{children}</ButtonText>
