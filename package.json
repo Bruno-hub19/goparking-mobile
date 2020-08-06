@@ -22,6 +22,7 @@
     "react-native-camera": "^3.35.0",
     "react-native-gesture-handler": "^1.7.0",
     "react-native-permissions": "^2.1.5",
+    "react-native-picker-select": "^8.0.0",
     "react-native-qrcode-scanner": "^1.4.1",
     "react-native-reanimated": "^1.10.1",
     "react-native-safe-area-context": "^3.1.1",
