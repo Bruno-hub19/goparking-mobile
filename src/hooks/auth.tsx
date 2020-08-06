@@ -14,12 +14,17 @@ interface ICredentials {
   password: string;
 }
 
+interface IVehicles {
+  license_plate: string;
+  owner_id: string;
+}
+
 interface IUser {
   id: string;
   name: string;
   email: string;
   phone: string;
-  vehicles: Array<string>;
+  vehicles: IVehicles[];
 }
 
 interface IAuthContext {
