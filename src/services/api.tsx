@@ -7,7 +7,7 @@ const token = AsyncStorage.getItem('@GoParking:token').then(
 
 const api = axios.create({
   baseURL: 'http://localhost:3434',
-  headers: token ? { authorization: token } : null,
+  headers: { Authorization: token },
 });
 
 export { api };
