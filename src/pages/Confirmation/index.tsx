@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Image } from 'react-native';
+import DropDownPicker from 'react-native-dropdown-picker';
+import Icon from 'react-native-vector-icons/Feather';
 
 import { api } from '../../services/api';
 
-import { SelectButton } from '../../components/SelectButton';
 import Button from '../../components/Button';
 import parkingIcon from '../../assets/parking-icon.png';
 
@@ -18,10 +19,6 @@ import {
   PaymentTitle,
   VehiclesContainer,
   VehiclesTitle,
-  VehiclesHorizontalScroll,
-  VehicleCard,
-  VehicleName,
-  VehicleLicensePlate,
 } from './styles';
 
 interface IConfirmationProps {
@@ -44,6 +41,8 @@ const Confirmation: React.FC<IConfirmationProps> = ({ route }) => {
   const [parkingLot, setParkingLot] = useState<IParkingLotState>(
     {} as IParkingLotState,
   );
+  const [paymentValue, setPaymentValue] = useState('nothing');
+  const [vehicleValue, setVehicleValue] = useState('nothing');
 
   useEffect(() => {
     async function loadParkingLotInformations(): Promise<void> {
@@ -75,11 +74,62 @@ const Confirmation: React.FC<IConfirmationProps> = ({ route }) => {
           <PaymentContainer>
             <PaymentTitle>Forma de pagamento</PaymentTitle>
 
-            <SelectButton iconName="credit-card">
-              Crédito ou Débito
-            </SelectButton>
-
-            <SelectButton iconName="dollar-sign">Dinheiro</SelectButton>
+            <DropDownPicker
+              items={[
+                {
+                  label: 'Selecione uma opção',
+                  value: 'nothing',
+                  disabled: true,
+                },
+                {
+                  label: 'Débito ou Crédito',
+                  selected: true,
+                  value: 'card',
+                  icon: () => (
+                    <Icon name="credit-card" size={20} color="#29C872" />
+                  ),
+                },
+                {
+                  label: 'Dinheiro',
+                  value: 'money',
+                  icon: () => (
+                    <Icon name="dollar-sign" size={20} color="#29C872" />
+                  ),
+                },
+              ]}
+              defaultValue={paymentValue}
+              containerStyle={{ height: 60, width: '100%' }}
+              style={{
+                backgroundColor: '#2f2f2f',
+                borderColor: '#2f2f2f',
+                paddingHorizontal: 30,
+              }}
+              itemStyle={{
+                paddingLeft: 20,
+                justifyContent: 'flex-start',
+              }}
+              dropDownStyle={{
+                backgroundColor: '#2f2f2f',
+                borderColor: '#2f2f2f',
+              }}
+              labelStyle={{
+                padding: 10,
+                color: '#29C872',
+                fontFamily: 'Roboto-Medium',
+                fontSize: 15,
+              }}
+              activeLabelStyle={{
+                color: '#29C872',
+              }}
+              activeItemStyle={{
+                backgroundColor: '#1f1f1f',
+                borderRadius: 5,
+              }}
+              arrowColor="#29C872"
+              onChangeItem={item => {
+                setPaymentValue(item.value);
+              }}
+            />
           </PaymentContainer>
 
           <VehiclesContainer>
@@ -87,31 +137,56 @@ const Confirmation: React.FC<IConfirmationProps> = ({ route }) => {
               Selecione o veículo que deseja estacionar
             </VehiclesTitle>
 
-            <VehiclesHorizontalScroll
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              contentContainerStyle={{ padding: 10, paddingRight: 0 }}
-            >
-              <VehicleCard>
-                <VehicleName>Gol</VehicleName>
-                <VehicleLicensePlate>ABC0000</VehicleLicensePlate>
-              </VehicleCard>
-
-              <VehicleCard>
-                <VehicleName>Gol</VehicleName>
-                <VehicleLicensePlate>ABC0000</VehicleLicensePlate>
-              </VehicleCard>
-
-              <VehicleCard>
-                <VehicleName>Gol</VehicleName>
-                <VehicleLicensePlate>ABC0000</VehicleLicensePlate>
-              </VehicleCard>
-
-              <VehicleCard>
-                <VehicleName>Gol</VehicleName>
-                <VehicleLicensePlate>ABC0000</VehicleLicensePlate>
-              </VehicleCard>
-            </VehiclesHorizontalScroll>
+            <DropDownPicker
+              items={[
+                {
+                  label: 'Selecione uma opção',
+                  value: 'nothing',
+                  disabled: true,
+                },
+                {
+                  label: 'Gol - ABC0000',
+                  value: 'abc0000',
+                },
+                {
+                  label: 'Logan - BRA2E19',
+                  value: 'bra2e19',
+                },
+              ]}
+              defaultValue={vehicleValue}
+              containerStyle={{ height: 60, width: '100%' }}
+              style={{
+                backgroundColor: '#2f2f2f',
+                borderColor: '#2f2f2f',
+                paddingHorizontal: 30,
+              }}
+              itemStyle={{
+                paddingLeft: 20,
+                justifyContent: 'flex-start',
+              }}
+              dropDownStyle={{
+                backgroundColor: '#2f2f2f',
+                borderColor: '#2f2f2f',
+              }}
+              labelStyle={{
+                padding: 10,
+                color: '#29C872',
+                fontFamily: 'Roboto-Medium',
+                fontSize: 15,
+              }}
+              activeLabelStyle={{
+                color: '#29C872',
+              }}
+              activeItemStyle={{
+                backgroundColor: '#1f1f1f',
+                borderRadius: 5,
+              }}
+              arrowColor="#29C872"
+              disabled={paymentValue === 'nothing'}
+              onChangeItem={item => {
+                setVehicleValue(item.value);
+              }}
+            />
           </VehiclesContainer>
 
           <Button onPress={() => console.log('Estacionar')}>Estacionar</Button>
