@@ -64,6 +64,7 @@ const VehiclesStackScreens: React.FC = ({ navigation }: any) => {
     <VehiclesStack.Navigator
       screenOptions={{
         title: '',
+        headerTitleAlign: 'center',
         headerTintColor: '#29c872',
         headerStyle: {
           backgroundColor: '#1f1f1f',
