@@ -1,9 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, Image } from 'react-native';
 
 import { useAuth } from '../../hooks/auth';
 
-import { Container, VehicleCard, VehicleLicensePlate } from './styles';
+import carIcon from '../../assets/car-icon.png';
+
+import Button from '../../components/Button';
+
+import {
+  Container,
+  VehicleCard,
+  VehicleAvatarContainer,
+  VehicleContent,
+  VehicleName,
+  VehicleLicensePlate,
+} from './styles';
 
 interface IVehiclesState {
   license_plate: string;
@@ -27,10 +38,21 @@ const Vehicles: React.FC = () => {
         style={{ width: '100%' }}
         renderItem={({ item: vehicle }) => (
           <VehicleCard>
-            <VehicleLicensePlate>{vehicle.license_plate}</VehicleLicensePlate>
+            <VehicleAvatarContainer>
+              <Image source={carIcon} />
+            </VehicleAvatarContainer>
+
+            <VehicleContent>
+              <VehicleName>Gol</VehicleName>
+              <VehicleLicensePlate>{vehicle.license_plate}</VehicleLicensePlate>
+            </VehicleContent>
           </VehicleCard>
         )}
       />
+
+      <Button onPress={() => console.log('Adicionar veículo')}>
+        Adicionar veículo
+      </Button>
     </Container>
   );
 };
