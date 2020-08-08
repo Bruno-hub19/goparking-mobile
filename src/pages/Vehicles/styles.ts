@@ -17,8 +17,6 @@ export const VehicleCard = styled.TouchableOpacity`
   margin-bottom: 10px;
   flex-direction: row;
   align-items: center;
-  /* border-top-width: 2px; */
-  /* border-color: #29c872; */
 `;
 
 export const VehicleAvatarContainer = styled.View`
@@ -44,7 +42,7 @@ export const VehicleName = styled.Text`
 `;
 
 export const VehicleLicensePlate = styled.Text`
-  font-family: 'Roboto-Medium';
+  font-family: 'Roboto-Regular';
   font-size: 15px;
   color: #7d7d7d;
 `;
