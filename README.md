@@ -31,10 +31,52 @@
 
 ## :bulb: Objective
 
+Integrate the best technologies to facilitate parking through a functional, beautiful and friendly interface.
+
 ## :star: Features
+
+<!-- Insert screenshots here -->
 
 ## :gear: Technologies
 
+- React Native
+- TypeScript
+- Context API
+- Unform
+- Styled Components
+- React native vector icons
+- QRCode scanner
+- React native camera
+- React native dropdown picker
+- React Navigation (Stack and Drawer)
+- Yup
+- Axios
+
 ## :information_source: How to use
 
+To clone and run this application, you'll need Git, Node.js v10.16 or higher + Yarn v1.13 or higher installed on your computer. From your command line:
+
+```bash
+  ## Clone this repository
+  $ git clone https://github.com/Bruno-hub19/goparking-mobile.git
+
+  ## Go into the repository
+  $ cd goparking-mobile
+
+  ## Install dependencies
+  $ yarn install
+
+  ## Run the metro bundler
+  $ yarn start
+
+  ## Run the app
+  $ yarn android
+        or
+  $ yarn ios
+```
+
 ## :hand: Author
+
+<strong>Made with :heart: by Bruno Nascimento.</strong>
+
+Connect with me on [LinkedIn](https://www.linkedin.com/in/bruno-nascimento-35803217b/)!
