@@ -19,7 +19,7 @@ const Routes: React.FC = () => {
           backgroundColor: '#1f1f1f',
         }}
       >
-        <ActivityIndicator size="large" color="#fff" />
+        <ActivityIndicator size="large" color="#29c872" />
       </View>
     );
   }
