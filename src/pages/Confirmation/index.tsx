@@ -21,6 +21,8 @@ import {
   VehiclesTitle,
 } from './styles';
 
+import { useAuth } from '../../hooks/auth';
+
 interface IConfirmationProps {
   route: {
     params: {
@@ -44,17 +46,20 @@ const Confirmation: React.FC<IConfirmationProps> = ({ route }) => {
   const [paymentValue, setPaymentValue] = useState('nothing');
   const [vehicleValue, setVehicleValue] = useState('nothing');
 
+  const { token } = useAuth();
+
   useEffect(() => {
     async function loadParkingLotInformations(): Promise<void> {
       const response = await api.get(
         `/parking/${route.params.parking_id}/info`,
+        { headers: { Authorization: `Bearer ${token}` } },
       );
 
       setParkingLot(response.data);
     }
 
     loadParkingLotInformations();
-  }, [route.params.parking_id]);
+  }, [route.params.parking_id, token]);
 
   return (
     <Container>
