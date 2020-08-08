@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { FlatList, Image } from 'react-native';
 
+import { api } from '../../services/api';
 import { useAuth } from '../../hooks/auth';
-
-import carIcon from '../../assets/car-icon.png';
-
 import Button from '../../components/Button';
+import carIcon from '../../assets/car-avatar.png';
 
 import {
   Container,
@@ -17,6 +16,7 @@ import {
 } from './styles';
 
 interface IVehiclesState {
+  name: string;
   license_plate: string;
   owner_id: string;
 }
@@ -24,11 +24,32 @@ interface IVehiclesState {
 const Vehicles: React.FC = () => {
   const [userVehicles, setUserVehicles] = useState<IVehiclesState[]>([]);
 
-  const { user } = useAuth();
+  const { token } = useAuth();
 
   useEffect(() => {
-    setUserVehicles(user.vehicles);
-  }, [user.vehicles]);
+    async function getVehicles() {
+      const response = await api.get('/vehicles', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      setUserVehicles(response.data);
+    }
+
+    getVehicles();
+  }, [token]);
+
+  const handleAddVehicle = useCallback(async () => {
+    const response = await api.post(
+      '/vehicles/add',
+      {
+        name: 'Testing',
+        license_plate: 'test1234',
+      },
+      { headers: { Authorization: `Bearer ${token}` } },
+    );
+
+    setUserVehicles([...userVehicles, response.data]);
+  }, [token, userVehicles]);
 
   return (
     <Container>
@@ -43,16 +64,14 @@ const Vehicles: React.FC = () => {
             </VehicleAvatarContainer>
 
             <VehicleContent>
-              <VehicleName>Gol</VehicleName>
+              <VehicleName>{vehicle.name}</VehicleName>
               <VehicleLicensePlate>{vehicle.license_plate}</VehicleLicensePlate>
             </VehicleContent>
           </VehicleCard>
         )}
       />
 
-      <Button onPress={() => console.log('Adicionar veículo')}>
-        Adicionar veículo
-      </Button>
+      <Button onPress={handleAddVehicle}>Adicionar veículo</Button>
     </Container>
   );
 };
