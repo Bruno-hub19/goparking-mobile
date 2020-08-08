@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { FlatList, Image } from 'react-native';
+import React, { useEffect, useCallback } from 'react';
+import { FlatList, Image, View, ActivityIndicator } from 'react-native';
 
-import { api } from '../../services/api';
 import { useAuth } from '../../hooks/auth';
+import { useVehicle } from '../../hooks/vehicle';
+
 import Button from '../../components/Button';
 import carIcon from '../../assets/car-avatar.png';
 
@@ -15,46 +16,45 @@ import {
   VehicleLicensePlate,
 } from './styles';
 
-interface IVehiclesState {
-  name: string;
-  license_plate: string;
-  owner_id: string;
-}
-
 const Vehicles: React.FC = () => {
-  const [userVehicles, setUserVehicles] = useState<IVehiclesState[]>([]);
-
   const { token } = useAuth();
+  const { vehicles, loadVehicles, addVehicle, isLoading } = useVehicle();
 
   useEffect(() => {
-    async function getVehicles() {
-      const response = await api.get('/vehicles', {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-
-      setUserVehicles(response.data);
-    }
-
-    getVehicles();
-  }, [token]);
+    setTimeout(() => {
+      loadVehicles(token);
+    }, 1000);
+  }, [token, loadVehicles]);
 
   const handleAddVehicle = useCallback(async () => {
-    const response = await api.post(
-      '/vehicles/add',
-      {
-        name: 'Testing',
-        license_plate: 'test1234',
+    addVehicle({
+      user_token: token,
+      vehicle: {
+        name: 'M2 Competition',
+        license_plate: 'ADB3E87',
       },
-      { headers: { Authorization: `Bearer ${token}` } },
-    );
+    });
+  }, [addVehicle, token]);
 
-    setUserVehicles([...userVehicles, response.data]);
-  }, [token, userVehicles]);
+  if (isLoading) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: '#1f1f1f',
+        }}
+      >
+        <ActivityIndicator size="large" color="#29c872" />
+      </View>
+    );
+  }
 
   return (
     <Container>
       <FlatList
-        data={userVehicles}
+        data={vehicles}
         keyExtractor={item => item.license_plate}
         style={{ width: '100%' }}
         renderItem={({ item: vehicle }) => (

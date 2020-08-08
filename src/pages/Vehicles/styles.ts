@@ -37,7 +37,7 @@ export const VehicleContent = styled.View`
 
 export const VehicleName = styled.Text`
   font-family: 'Roboto-Medium';
-  font-size: 20px;
+  font-size: 16px;
   color: #fff;
 `;
 
