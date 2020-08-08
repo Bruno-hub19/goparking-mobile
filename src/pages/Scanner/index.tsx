@@ -35,4 +35,4 @@ const Scanner: React.FC = () => {
   );
 };
 
-export default Scanner;
+export { Scanner };

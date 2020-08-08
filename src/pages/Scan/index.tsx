@@ -33,4 +33,4 @@ const Scan: React.FC = () => {
   );
 };
 
-export default Scan;
+export { Scan };
