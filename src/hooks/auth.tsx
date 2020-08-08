@@ -29,6 +29,7 @@ interface IUser {
 
 interface IAuthContext {
   user: IUser;
+  token: string;
   loading: boolean;
   signIn(credentials: ICredentials): Promise<void>;
   signOut(): void;
@@ -82,7 +83,9 @@ const AuthProvider: React.FC = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user: data.user, loading, signIn, signOut }}>
+    <AuthContext.Provider
+      value={{ user: data.user, token: data.token, loading, signIn, signOut }}
+    >
       {children}
     </AuthContext.Provider>
   );
