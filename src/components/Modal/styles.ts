@@ -2,12 +2,9 @@ import styled from 'styled-components/native';
 
 export const ModalContent = styled.View`
   width: 100%;
-  height: 400px;
   background: #1f1f1f;
   border-radius: 5px;
   padding: 30px 10px;
-  border-top-width: 3px;
-  border-color: #29c872;
   align-items: center;
   justify-content: space-around;
 `;
@@ -17,6 +14,7 @@ export const ModalTitle = styled.Text`
   font-size: 20px;
   color: #fff;
   text-align: center;
+  margin-bottom: 10px;
 `;
 
 export const ModalDescription = styled.Text`
@@ -24,6 +22,7 @@ export const ModalDescription = styled.Text`
   font-size: 15px;
   color: #7d7d7d;
   text-align: center;
+  margin-bottom: 15px;
 `;
 
 export const ModalButtons = styled.View`
@@ -49,4 +48,5 @@ export const ModalCancelButton = styled(ModalConfirmButton)`
 export const ModalChildren = styled.View`
   width: 100%;
   padding: 0 10px;
+  margin-bottom: 15px;
 `;
