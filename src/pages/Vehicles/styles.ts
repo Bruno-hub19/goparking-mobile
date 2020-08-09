@@ -17,6 +17,7 @@ export const VehicleCard = styled.TouchableOpacity`
   margin-bottom: 10px;
   flex-direction: row;
   align-items: center;
+  position: relative;
 `;
 
 export const VehicleAvatarContainer = styled.View`
@@ -33,6 +34,15 @@ export const VehicleContent = styled.View`
   padding-left: 15px;
   justify-content: center;
   align-items: flex-start;
+`;
+
+export const VehicleRemoveButton = styled.TouchableOpacity`
+  width: 40px;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: 0;
 `;
 
 export const VehicleName = styled.Text`
