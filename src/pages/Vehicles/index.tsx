@@ -18,16 +18,22 @@ import {
 
 const Vehicles: React.FC = () => {
   const { token } = useAuth();
-  const { vehicles, loadVehicles, addVehicle, isLoading } = useVehicle();
+  const {
+    vehicles,
+    loadVehicles,
+    addVehicle,
+    removeVehicle,
+    isLoading,
+  } = useVehicle();
 
   useEffect(() => {
     setTimeout(() => {
       loadVehicles(token);
-    }, 1000);
+    }, 500);
   }, [token, loadVehicles]);
 
   const handleAddVehicle = useCallback(async () => {
-    addVehicle({
+    await addVehicle({
       user_token: token,
       vehicle: {
         name: 'M2 Competition',
@@ -35,6 +41,16 @@ const Vehicles: React.FC = () => {
       },
     });
   }, [addVehicle, token]);
+
+  const handleRemoveVehicle = useCallback(
+    async (vehicle_id: string) => {
+      await removeVehicle({
+        user_token: token,
+        vehicle_id,
+      });
+    },
+    [removeVehicle, token],
+  );
 
   if (isLoading) {
     return (
@@ -58,7 +74,7 @@ const Vehicles: React.FC = () => {
         keyExtractor={item => item.license_plate}
         style={{ width: '100%' }}
         renderItem={({ item: vehicle }) => (
-          <VehicleCard>
+          <VehicleCard onPress={() => handleRemoveVehicle(vehicle.id)}>
             <VehicleAvatarContainer>
               <Image source={carIcon} />
             </VehicleAvatarContainer>
