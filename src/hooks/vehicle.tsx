@@ -10,10 +10,12 @@ interface IVehicle {
 
 interface IAddVehicleDTO {
   user_token: string;
-  vehicle: {
-    name: string;
-    license_plate: string;
-  };
+  vehicle: Omit<IVehicle, 'id'>;
+}
+
+interface IRemoveVehicleDTO {
+  user_token: string;
+  vehicle_id: string;
 }
 
 interface IVehicleContext {
@@ -21,6 +23,7 @@ interface IVehicleContext {
   isLoading: boolean;
   loadVehicles(user_token: string): Promise<void>;
   addVehicle(data: IAddVehicleDTO): Promise<void>;
+  removeVehicle(data: IRemoveVehicleDTO): Promise<void>;
 }
 
 const VehicleContext = createContext<IVehicleContext>({} as IVehicleContext);
@@ -52,9 +55,36 @@ const VehicleProvider: React.FC = ({ children }) => {
     [data],
   );
 
+  const removeVehicle = useCallback(
+    async ({ user_token, vehicle_id }: IRemoveVehicleDTO) => {
+      await api.delete(`/vehicles/delete/${vehicle_id}`, {
+        headers: { Authorization: `Bearer ${user_token}` },
+      });
+
+      setData(oldState => {
+        const vehicleIndex = oldState.findIndex(
+          vehicle => vehicle.id === vehicle_id,
+        );
+
+        oldState.splice(vehicleIndex, 1);
+
+        const newState = oldState.map(vehicle => vehicle);
+
+        return newState;
+      });
+    },
+    [],
+  );
+
   return (
     <VehicleContext.Provider
-      value={{ vehicles: data, isLoading, loadVehicles, addVehicle }}
+      value={{
+        vehicles: data,
+        isLoading,
+        loadVehicles,
+        addVehicle,
+        removeVehicle,
+      }}
     >
       {children}
     </VehicleContext.Provider>
