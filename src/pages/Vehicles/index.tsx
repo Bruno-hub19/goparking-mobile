@@ -74,7 +74,7 @@ const Vehicles: React.FC = () => {
         keyExtractor={item => item.license_plate}
         style={{ width: '100%' }}
         renderItem={({ item: vehicle }) => (
-          <VehicleCard onPress={() => handleRemoveVehicle(vehicle.id)}>
+          <VehicleCard>
             <VehicleAvatarContainer>
               <Image source={carIcon} />
             </VehicleAvatarContainer>
