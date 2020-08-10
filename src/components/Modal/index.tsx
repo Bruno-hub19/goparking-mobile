@@ -30,6 +30,10 @@ const CustomModal: React.FC<ICustomModalProps> = ({
 }) => {
   return (
     <Modal
+      animationIn="zoomIn"
+      animationOut="slideOutDown"
+      animationInTiming={700}
+      animationOutTiming={400}
       isVisible={isVisible}
       style={{
         justifyContent: 'center',
