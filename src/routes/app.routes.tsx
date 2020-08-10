@@ -92,19 +92,21 @@ const AppRoutes: React.FC = () => {
   return (
     <AppDrawer.Navigator
       drawerType="back"
-      drawerStyle={{ backgroundColor: '#1f1f1f' }}
+      drawerStyle={{ backgroundColor: '#1f1f1f', width: 100 }}
       drawerContentOptions={{
         inactiveBackgroundColor: '#1f1f1f',
         inactiveTintColor: '#29c872',
         activeBackgroundColor: '#2f2f2f',
         activeTintColor: '#29c872',
       }}
+      screenOptions={{
+        title: '',
+      }}
     >
       <AppDrawer.Screen
         name="Home"
         component={HomeStackScreens}
         options={{
-          title: 'Início',
           drawerIcon: () => (
             <Icon
               name="home"
@@ -119,7 +121,6 @@ const AppRoutes: React.FC = () => {
         name="Vehicles"
         component={VehiclesStackScreens}
         options={{
-          title: 'Meus veículos',
           drawerIcon: () => (
             <Icon
               name="truck"
