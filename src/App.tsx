@@ -1,18 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
+import changeNavigationBarColor from 'react-native-navigation-bar-color';
 
 import { AppProvider } from './hooks';
 import { Routes } from './routes';
 
-const App: React.FC = () => (
-  <NavigationContainer>
-    <StatusBar backgroundColor="#1F1F1F" barStyle="light-content" />
+const App: React.FC = () => {
+  useEffect(() => {
+    changeNavigationBarColor('#2f2f2f', false, false);
+  }, []);
 
-    <AppProvider>
-      <Routes />
-    </AppProvider>
-  </NavigationContainer>
-);
+  return (
+    <NavigationContainer>
+      <StatusBar backgroundColor="#1F1F1F" barStyle="light-content" />
+
+      <AppProvider>
+        <Routes />
+      </AppProvider>
+    </NavigationContainer>
+  );
+};
 
 export default App;
