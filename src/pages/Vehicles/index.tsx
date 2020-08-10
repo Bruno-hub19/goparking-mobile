@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState, useRef } from 'react';
+import React, { useCallback, useState, useRef } from 'react';
 import { FlatList, Image, View, ActivityIndicator, Alert } from 'react-native';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/mobile';
@@ -36,19 +36,7 @@ const Vehicles: React.FC = () => {
   const [addVehicleModalVisible, setAddVehicleModalVisible] = useState(false);
 
   const { token } = useAuth();
-  const {
-    vehicles,
-    loadVehicles,
-    addVehicle,
-    removeVehicle,
-    isLoading,
-  } = useVehicle();
-
-  useEffect(() => {
-    setTimeout(() => {
-      loadVehicles(token);
-    }, 500);
-  }, [token, loadVehicles]);
+  const { vehicles, addVehicle, removeVehicle, isLoading } = useVehicle();
 
   const handleToggleModal = useCallback(() => {
     setAddVehicleModalVisible(!addVehicleModalVisible);
@@ -65,6 +53,7 @@ const Vehicles: React.FC = () => {
           license_plate: Yup.string()
             .uppercase('Deve ser em caixa alta')
             .strict(true)
+            .min(7, 'Mínimo de 7 caracteres')
             .required('Campo obrigatório'),
         });
 
