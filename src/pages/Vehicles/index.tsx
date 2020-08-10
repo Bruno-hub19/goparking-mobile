@@ -1,5 +1,5 @@
 import React, { useCallback, useState, useRef } from 'react';
-import { FlatList, Image, View, ActivityIndicator, Alert } from 'react-native';
+import { FlatList, Image, Alert } from 'react-native';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/mobile';
 import * as Yup from 'yup';
@@ -36,7 +36,7 @@ const Vehicles: React.FC = () => {
   const [addVehicleModalVisible, setAddVehicleModalVisible] = useState(false);
 
   const { token } = useAuth();
-  const { vehicles, addVehicle, removeVehicle, isLoading } = useVehicle();
+  const { vehicles, addVehicle, removeVehicle } = useVehicle();
 
   const handleToggleModal = useCallback(() => {
     setAddVehicleModalVisible(!addVehicleModalVisible);
@@ -95,21 +95,6 @@ const Vehicles: React.FC = () => {
     },
     [removeVehicle, token],
   );
-
-  if (isLoading) {
-    return (
-      <View
-        style={{
-          flex: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
-          backgroundColor: '#1f1f1f',
-        }}
-      >
-        <ActivityIndicator size="large" color="#29c872" />
-      </View>
-    );
-  }
 
   return (
     <Container>
