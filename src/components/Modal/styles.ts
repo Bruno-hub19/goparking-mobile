@@ -4,9 +4,10 @@ export const ModalContent = styled.View`
   width: 100%;
   background: #1f1f1f;
   border-radius: 5px;
-  padding: 30px 10px;
+  padding: 30px 15px;
   align-items: center;
   justify-content: space-around;
+  position: relative;
 `;
 
 export const ModalTitle = styled.Text`
@@ -25,28 +26,34 @@ export const ModalDescription = styled.Text`
   margin-bottom: 15px;
 `;
 
-export const ModalButtons = styled.View`
+export const ModalConfirmButton = styled.TouchableOpacity`
   width: 100%;
   height: 60px;
-  flex-direction: row;
-  justify-content: space-between;
-  padding: 0 10px;
-`;
-
-export const ModalConfirmButton = styled.TouchableOpacity`
-  width: 120px;
   background: #29c872;
   border-radius: 5px;
   justify-content: center;
   align-items: center;
 `;
 
-export const ModalCancelButton = styled(ModalConfirmButton)`
-  background: #f55252;
+export const ModalCancelButton = styled.TouchableOpacity`
+  width: 40px;
+  height: 40px;
+  /* background: #f55252; */
+  border-radius: 5px;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+`;
+
+export const ButtonText = styled.Text`
+  color: #2f2f2f;
+  font-family: 'Roboto-Medium';
+  font-size: 15px;
 `;
 
 export const ModalChildren = styled.View`
   width: 100%;
-  padding: 0 10px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 `;

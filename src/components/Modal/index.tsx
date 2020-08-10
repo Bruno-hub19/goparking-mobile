@@ -6,9 +6,9 @@ import {
   ModalContent,
   ModalTitle,
   ModalDescription,
-  ModalButtons,
   ModalConfirmButton,
   ModalCancelButton,
+  ButtonText,
   ModalChildren,
 } from './styles';
 
@@ -35,22 +35,21 @@ const CustomModal: React.FC<ICustomModalProps> = ({
         justifyContent: 'center',
         alignItems: 'center',
       }}
+      backdropOpacity={0.8}
     >
       <ModalContent>
+        <ModalCancelButton onPress={cancelBehavior}>
+          <Icon name="x" color="#f55252" size={25} />
+        </ModalCancelButton>
+
         <ModalTitle>{title}</ModalTitle>
         <ModalDescription>{description}</ModalDescription>
 
         <ModalChildren>{children}</ModalChildren>
 
-        <ModalButtons>
-          <ModalCancelButton onPress={cancelBehavior}>
-            <Icon name="x" color="#fff" size={25} />
-          </ModalCancelButton>
-
-          <ModalConfirmButton onPress={confirmBehavior}>
-            <Icon name="check" color="#fff" size={25} />
-          </ModalConfirmButton>
-        </ModalButtons>
+        <ModalConfirmButton onPress={confirmBehavior}>
+          <ButtonText>Confirmar</ButtonText>
+        </ModalConfirmButton>
       </ModalContent>
     </Modal>
   );
