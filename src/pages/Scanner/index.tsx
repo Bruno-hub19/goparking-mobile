@@ -1,28 +1,24 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import { ActivityIndicator, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import QRCodeScanner, { Event } from 'react-native-qrcode-scanner';
 
 import { ScannerTopContent } from '../../components/ScannerTopContent';
 
 const Scanner: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const navigation = useNavigation();
 
   useEffect(() => {
     setTimeout(() => {
       setIsVisible(true);
-    }, 1000);
+    }, 500);
   }, []);
 
-  const onSuccess = useCallback(
-    (e: Event) => {
-      navigation.navigate('Confirmation', {
-        parking_id: e.data,
-      });
-    },
-    [navigation],
-  );
+  const onSuccess = useCallback((e: Event) => {
+    console.log(
+      '[QRCODE]: navegar usuário para confirmação com o dado: ',
+      e.data,
+    );
+  }, []);
 
   if (!isVisible) {
     return (
@@ -44,13 +40,11 @@ const Scanner: React.FC = () => {
       onRead={e => onSuccess(e)}
       fadeIn
       showMarker
-      cameraStyle={{ height: 430 }}
+      cameraStyle={{ height: 530 }}
       markerStyle={{ borderRadius: 5, borderColor: '#29c872' }}
       checkAndroid6Permissions
       topContent={<ScannerTopContent />}
-      topViewStyle={{
-        paddingBottom: 80,
-      }}
+      topViewStyle={{ paddingBottom: 0 }}
       containerStyle={{ backgroundColor: '#1f1f1f' }}
     />
   );
