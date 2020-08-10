@@ -12,7 +12,6 @@ import { SmallButton } from '../components/SmallButton';
 
 import { Scan } from '../pages/Scan';
 import { Scanner } from '../pages/Scanner';
-import { Confirmation } from '../pages/Confirmation';
 import { Vehicles } from '../pages/Vehicles';
 
 const HomeStack = createStackNavigator();
@@ -53,8 +52,13 @@ const HomeStackScreens: React.FC = ({ navigation }: any) => {
           ...TransitionPresets.DefaultTransition,
         }}
       />
-      <HomeStack.Screen name="Scanner" component={Scanner} />
-      <HomeStack.Screen name="Confirmation" component={Confirmation} />
+      <HomeStack.Screen
+        name="Scanner"
+        component={Scanner}
+        options={{
+          headerTransparent: true,
+        }}
+      />
     </HomeStack.Navigator>
   );
 };
