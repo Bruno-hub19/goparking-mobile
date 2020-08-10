@@ -39,7 +39,7 @@ export const ParkingPhone = styled.Text`
 export const ParkingPrice = styled.Text`
   font-family: 'Roboto-Medium';
   font-size: 20px;
-  margin-bottom: 60px;
+  margin-bottom: 30px;
   color: #29c872;
 `;
 
@@ -64,5 +64,6 @@ export const VehiclesTitle = styled.Text`
   font-family: 'Roboto-Regular';
   font-size: 15px;
   color: #ffff;
+  margin-top: 20px;
   margin-bottom: 15px;
 `;

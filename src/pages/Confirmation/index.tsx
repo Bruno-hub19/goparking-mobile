@@ -22,6 +22,7 @@ import {
 } from './styles';
 
 import { useAuth } from '../../hooks/auth';
+import { useVehicle } from '../../hooks/vehicle';
 
 interface IConfirmationProps {
   route: {
@@ -44,9 +45,9 @@ const Confirmation: React.FC<IConfirmationProps> = ({ route }) => {
     {} as IParkingLotState,
   );
   const [paymentValue, setPaymentValue] = useState('nothing');
-  const [vehicleValue, setVehicleValue] = useState('nothing');
 
   const { token } = useAuth();
+  const { vehicles } = useVehicle();
 
   useEffect(() => {
     async function loadParkingLotInformations(): Promise<void> {
@@ -88,7 +89,6 @@ const Confirmation: React.FC<IConfirmationProps> = ({ route }) => {
                 },
                 {
                   label: 'Débito ou Crédito',
-                  selected: true,
                   value: 'card',
                   icon: () => (
                     <Icon name="credit-card" size={20} color="#29C872" />
@@ -138,60 +138,7 @@ const Confirmation: React.FC<IConfirmationProps> = ({ route }) => {
           </PaymentContainer>
 
           <VehiclesContainer>
-            <VehiclesTitle>
-              Selecione o veículo que deseja estacionar
-            </VehiclesTitle>
-
-            <DropDownPicker
-              items={[
-                {
-                  label: 'Selecione uma opção',
-                  value: 'nothing',
-                  disabled: true,
-                },
-                {
-                  label: 'Gol - ABC0000',
-                  value: 'abc0000',
-                },
-                {
-                  label: 'Logan - BRA2E19',
-                  value: 'bra2e19',
-                },
-              ]}
-              defaultValue={vehicleValue}
-              containerStyle={{ height: 60, width: '100%' }}
-              style={{
-                backgroundColor: '#2f2f2f',
-                borderColor: '#2f2f2f',
-                paddingHorizontal: 30,
-              }}
-              itemStyle={{
-                paddingLeft: 20,
-                justifyContent: 'flex-start',
-              }}
-              dropDownStyle={{
-                backgroundColor: '#2f2f2f',
-                borderColor: '#2f2f2f',
-              }}
-              labelStyle={{
-                padding: 10,
-                color: '#29C872',
-                fontFamily: 'Roboto-Medium',
-                fontSize: 15,
-              }}
-              activeLabelStyle={{
-                color: '#29C872',
-              }}
-              activeItemStyle={{
-                backgroundColor: '#1f1f1f',
-                borderRadius: 5,
-              }}
-              arrowColor="#29C872"
-              disabled={paymentValue === 'nothing'}
-              onChangeItem={item => {
-                setVehicleValue(item.value);
-              }}
-            />
+            <VehiclesTitle>Seu veículo atual é: Gol - ABD8900</VehiclesTitle>
           </VehiclesContainer>
 
           <Button onPress={() => console.log('Estacionar')}>Estacionar</Button>
