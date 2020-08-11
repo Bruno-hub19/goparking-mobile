@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Image } from 'react-native';
 
 import { useAuth } from '../../hooks/auth';
-import { useVehicle } from '../../hooks/vehicle';
 
 import logoImg from '../../assets/logo.png';
 import qrcodeImage from '../../assets/qr-code.png';
@@ -10,14 +9,7 @@ import qrcodeImage from '../../assets/qr-code.png';
 import { Container, HelloText, InstructionText } from './styles';
 
 const Scan: React.FC = () => {
-  const { user, token } = useAuth();
-  const { loadVehicles } = useVehicle();
-
-  useEffect(() => {
-    setTimeout(async () => {
-      await loadVehicles(token);
-    }, 500);
-  }, [token, loadVehicles]);
+  const { user } = useAuth();
 
   return (
     <Container>
