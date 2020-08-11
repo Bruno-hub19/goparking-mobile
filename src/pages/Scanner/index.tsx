@@ -20,11 +20,11 @@ const Scanner: React.FC = ({ navigation }: any) => {
       showMarker
       reactivate
       reactivateTimeout={2000}
-      cameraStyle={{ height: 530 }}
+      cameraStyle={{ height: 500 }}
       markerStyle={{ borderRadius: 5, borderColor: '#29c872' }}
       checkAndroid6Permissions
       topContent={<ScannerTopContent />}
-      topViewStyle={{ paddingBottom: 0 }}
+      topViewStyle={{ paddingBottom: 20 }}
       containerStyle={{ backgroundColor: '#1f1f1f' }}
     />
   );
