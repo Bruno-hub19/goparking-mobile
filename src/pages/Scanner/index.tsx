@@ -3,13 +3,15 @@ import QRCodeScanner, { Event } from 'react-native-qrcode-scanner';
 
 import { ScannerTopContent } from '../../components/ScannerTopContent';
 
-const Scanner: React.FC = () => {
-  const onSuccess = useCallback((e: Event) => {
-    console.log(
-      '[QRCODE]: navegar usuário para confirmação com o dado: ',
-      e.data,
-    );
-  }, []);
+const Scanner: React.FC = ({ navigation }: any) => {
+  const onSuccess = useCallback(
+    (e: Event) => {
+      navigation.navigate('Confirmation', {
+        parking_id: e.data,
+      });
+    },
+    [navigation],
+  );
 
   return (
     <QRCodeScanner
