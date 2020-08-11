@@ -1,91 +1,137 @@
 import React from 'react';
+import { Image, TouchableOpacity } from 'react-native';
 import {
   createStackNavigator,
   TransitionPresets,
 } from '@react-navigation/stack';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Feather';
 
-import { useAuth } from '../hooks/auth';
+import avatar from '../assets/meu-avatar.png';
 
+import { useAuth } from '../hooks/auth';
 import { SmallButton } from '../components/SmallButton';
 
 import { Scan } from '../pages/Scan';
 import { Scanner } from '../pages/Scanner';
+import { Confirmation } from '../pages/Confirmation';
 import { Vehicles } from '../pages/Vehicles';
 
-const HomeStack = createStackNavigator();
+const ScanStack = createStackNavigator();
+const ScannerStack = createStackNavigator();
 const VehiclesStack = createStackNavigator();
-const AppDrawer = createDrawerNavigator();
+const AppBottomTabs = createBottomTabNavigator();
 
-const HomeStackScreens: React.FC = ({ navigation }: any) => {
+const ScanStackScreens: React.FC = () => {
   const { signOut } = useAuth();
 
   return (
-    <HomeStack.Navigator
+    <ScanStack.Navigator
       screenOptions={{
+        title: '',
         headerStyle: {
           backgroundColor: '#1f1f1f',
           elevation: 0,
         },
-        title: '',
-        headerTintColor: '#fff',
-        ...TransitionPresets.ModalSlideFromBottomIOS,
       }}
     >
-      <HomeStack.Screen
-        name="Scan"
+      <ScanStack.Screen
+        name="Home"
         component={Scan}
         options={{
-          headerLeft: () => (
-            <SmallButton name="menu" onPress={() => navigation.openDrawer()} />
+          headerRightContainerStyle: {
+            paddingRight: 20,
+          },
+          headerRight: () => (
+            <SmallButton iconName="log-out" onPress={() => signOut()} />
           ),
           headerLeftContainerStyle: {
             paddingLeft: 20,
           },
-          headerRight: () => (
-            <SmallButton name="log-out" onPress={() => signOut()} />
+          headerLeft: () => (
+            <TouchableOpacity style={{ width: 30, height: 30 }}>
+              <Image
+                source={avatar}
+                style={{
+                  width: 30,
+                  height: 30,
+                  flex: 1,
+                  borderRadius: 30,
+                  resizeMode: 'contain',
+                }}
+              />
+            </TouchableOpacity>
           ),
-          headerRightContainerStyle: {
-            paddingRight: 20,
-          },
-          ...TransitionPresets.DefaultTransition,
         }}
       />
-      <HomeStack.Screen
-        name="Scanner"
-        component={Scanner}
-        options={{
-          headerTransparent: true,
-        }}
-      />
-    </HomeStack.Navigator>
+    </ScanStack.Navigator>
   );
 };
 
-const VehiclesStackScreens: React.FC = ({ navigation }: any) => {
+const ScannerStackScreens: React.FC = () => {
   return (
-    <VehiclesStack.Navigator
+    <ScannerStack.Navigator
       screenOptions={{
-        title: '',
-        headerTintColor: '#29c872',
+        headerTintColor: '#fff',
         headerStyle: {
           backgroundColor: '#1f1f1f',
           elevation: 0,
         },
-        headerLeft: () => (
-          <SmallButton name="menu" onPress={() => navigation.openDrawer()} />
-        ),
-        headerLeftContainerStyle: {
-          paddingLeft: 20,
+        ...TransitionPresets.SlideFromRightIOS,
+      }}
+    >
+      <ScannerStack.Screen
+        name="Home"
+        component={Scanner}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <ScannerStack.Screen
+        name="Confirmation"
+        component={Confirmation}
+        options={{
+          title: 'Confirmação',
+        }}
+      />
+    </ScannerStack.Navigator>
+  );
+};
+
+const VehiclesStackScreens: React.FC = () => {
+  return (
+    <VehiclesStack.Navigator
+      screenOptions={{
+        headerTintColor: '#fff',
+        headerTitleAlign: 'center',
+        headerStyle: {
+          backgroundColor: '#1f1f1f',
+          elevation: 0,
         },
       }}
     >
       <VehiclesStack.Screen
-        name="home"
+        name="Home"
         component={Vehicles}
         options={{
-          title: 'Meus veículos',
+          title: 'Veículos',
+          headerLeftContainerStyle: {
+            paddingLeft: 20,
+          },
+          headerLeft: () => (
+            <TouchableOpacity style={{ width: 30, height: 30 }}>
+              <Image
+                source={avatar}
+                style={{
+                  width: 30,
+                  height: 30,
+                  flex: 1,
+                  borderRadius: 30,
+                  resizeMode: 'contain',
+                }}
+              />
+            </TouchableOpacity>
+          ),
         }}
       />
     </VehiclesStack.Navigator>
@@ -94,48 +140,68 @@ const VehiclesStackScreens: React.FC = ({ navigation }: any) => {
 
 const AppRoutes: React.FC = () => {
   return (
-    <AppDrawer.Navigator
-      drawerType="back"
-      drawerStyle={{ backgroundColor: '#1f1f1f', width: 100 }}
-      drawerContentOptions={{
-        inactiveBackgroundColor: '#1f1f1f',
-        inactiveTintColor: '#29c872',
-        activeBackgroundColor: '#2f2f2f',
+    <AppBottomTabs.Navigator
+      initialRouteName="Scan"
+      tabBarOptions={{
         activeTintColor: '#29c872',
-      }}
-      screenOptions={{
-        title: '',
+        inactiveTintColor: '#7d7d7d',
+        style: {
+          borderTopColor: '#2f2f2f',
+          height: 52,
+        },
+        tabStyle: {
+          backgroundColor: '#2f2f2f',
+          paddingTop: 10,
+        },
+        labelStyle: {
+          paddingBottom: 4,
+          fontSize: 13,
+          fontWeight: 'bold',
+        },
       }}
     >
-      <AppDrawer.Screen
-        name="Home"
-        component={HomeStackScreens}
-        options={{
-          drawerIcon: () => (
-            <Icon
-              name="home"
-              size={20}
-              color="#29c872"
-              style={{ marginLeft: 20 }}
-            />
-          ),
-        }}
-      />
-      <AppDrawer.Screen
+      <AppBottomTabs.Screen
         name="Vehicles"
         component={VehiclesStackScreens}
         options={{
-          drawerIcon: () => (
+          tabBarLabel: 'Veículos',
+          tabBarIcon: ({ focused }) => (
             <Icon
               name="truck"
               size={20}
-              color="#29c872"
-              style={{ marginLeft: 20 }}
+              color={focused ? '#29c872' : '#7d7d7d'}
             />
           ),
         }}
       />
-    </AppDrawer.Navigator>
+      <AppBottomTabs.Screen
+        name="Scan"
+        component={ScanStackScreens}
+        options={{
+          tabBarLabel: 'Início',
+          tabBarIcon: ({ focused }) => (
+            <Icon
+              name="home"
+              size={20}
+              color={focused ? '#29c872' : '#7d7d7d'}
+            />
+          ),
+        }}
+      />
+      <AppBottomTabs.Screen
+        name="Scanner"
+        component={ScannerStackScreens}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <Icon
+              name="maximize"
+              size={20}
+              color={focused ? '#29c872' : '#7d7d7d'}
+            />
+          ),
+        }}
+      />
+    </AppBottomTabs.Navigator>
   );
 };
 
