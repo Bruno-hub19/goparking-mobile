@@ -1,5 +1,4 @@
 import React from 'react';
-import { Image, TouchableOpacity } from 'react-native';
 import {
   createStackNavigator,
   TransitionPresets,
@@ -7,15 +6,15 @@ import {
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Feather';
 
-import avatar from '../assets/meu-avatar.png';
-
 import { useAuth } from '../hooks/auth';
+import { ProfileButton } from '../pages/Profile/ProfileButton';
 import { SmallButton } from '../components/SmallButton';
 
 import { Scan } from '../pages/Scan';
 import { Scanner } from '../pages/Scanner';
 import { Confirmation } from '../pages/Confirmation';
 import { Vehicles } from '../pages/Vehicles';
+import { Profile } from '../pages/Profile';
 
 const AppBottomTabs = createBottomTabNavigator();
 const AppStack = createStackNavigator();
@@ -108,25 +107,24 @@ const AppRoutes: React.FC = () => {
         headerLeftContainerStyle: {
           paddingLeft: 20,
         },
-        headerLeft: () => (
-          <TouchableOpacity style={{ width: 30, height: 30 }}>
-            <Image
-              source={avatar}
-              style={{
-                width: 30,
-                height: 30,
-                flex: 1,
-                borderRadius: 30,
-                resizeMode: 'contain',
-              }}
-            />
-          </TouchableOpacity>
-        ),
+        headerLeft: () => <ProfileButton />,
         ...TransitionPresets.SlideFromRightIOS,
       }}
     >
       <AppStack.Screen name="Home" component={AppBottomTabsScreens} />
-      <AppStack.Screen name="Confirmation" component={Confirmation} />
+      <AppStack.Screen
+        name="Confirmation"
+        component={Confirmation}
+        options={{ headerShown: false }}
+      />
+      <AppStack.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          headerLeft: () => <Icon name="arrow-left" size={26} color="#fff" />,
+          headerRight: undefined,
+        }}
+      />
     </AppStack.Navigator>
   );
 };
