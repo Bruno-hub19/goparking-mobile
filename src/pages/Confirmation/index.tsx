@@ -5,8 +5,11 @@ import Icon from 'react-native-vector-icons/Feather';
 
 import { api } from '../../services/api';
 
-import Button from '../../components/Button';
 import parkingIcon from '../../assets/parking-icon.png';
+import Button from '../../components/Button';
+
+import { useAuth } from '../../hooks/auth';
+import { useVehicle } from '../../hooks/vehicle';
 
 import {
   Container,
@@ -20,9 +23,6 @@ import {
   VehiclesContainer,
   VehiclesTitle,
 } from './styles';
-
-import { useAuth } from '../../hooks/auth';
-import { useVehicle } from '../../hooks/vehicle';
 
 interface IConfirmationProps {
   route: {
