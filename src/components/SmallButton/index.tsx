@@ -5,13 +5,13 @@ import { TouchableOpacityProps } from 'react-native';
 import { Container } from './styles';
 
 interface ISmallButtonProps extends TouchableOpacityProps {
-  name: string;
+  iconName: string;
 }
 
-const SmallButton: React.FC<ISmallButtonProps> = ({ name, ...rest }) => {
+const SmallButton: React.FC<ISmallButtonProps> = ({ iconName, ...rest }) => {
   return (
     <Container {...rest}>
-      <Icon name={name} size={25} color="#29c872" />
+      <Icon name={iconName} size={25} color="#29c872" />
     </Container>
   );
 };
