@@ -9,7 +9,6 @@ import parkingIcon from '../../assets/parking-icon.png';
 import Button from '../../components/Button';
 
 import { useAuth } from '../../hooks/auth';
-import { useVehicle } from '../../hooks/vehicle';
 
 import {
   Container,
@@ -47,7 +46,6 @@ const Confirmation: React.FC<IConfirmationProps> = ({ route }) => {
   const [paymentValue, setPaymentValue] = useState('nothing');
 
   const { token } = useAuth();
-  const { vehicles } = useVehicle();
 
   useEffect(() => {
     async function loadParkingLotInformations(): Promise<void> {

@@ -1,13 +1,12 @@
-import React, { useCallback, useState, useRef } from 'react';
-import { FlatList, Image, Alert } from 'react-native';
+import React, { useEffect, useCallback, useState, useRef } from 'react';
+import { FlatList, Image, Alert, View, ActivityIndicator } from 'react-native';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/mobile';
 import * as Yup from 'yup';
 import Icon from 'react-native-vector-icons/Feather';
 
+import { api } from '../../services/api';
 import { useAuth } from '../../hooks/auth';
-import { useVehicle } from '../../hooks/vehicle';
-
 import { getValidationErrors } from '../../utils/getValidationErrors';
 
 import { CustomModal } from '../../components/Modal';
@@ -25,6 +24,12 @@ import {
   VehicleLicensePlate,
 } from './styles';
 
+interface IUserVehiclesState {
+  id: string;
+  name: string;
+  license_plate: string;
+}
+
 interface IAddVehicleData {
   vehicle_name: string;
   license_plate: string;
@@ -32,15 +37,28 @@ interface IAddVehicleData {
 
 const Vehicles: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
-
+  const [userVehicles, setUserVehicles] = useState<IUserVehiclesState[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [addVehicleModalVisible, setAddVehicleModalVisible] = useState(false);
 
   const { token } = useAuth();
-  const { vehicles, addVehicle, removeVehicle } = useVehicle();
 
   const handleToggleModal = useCallback(() => {
     setAddVehicleModalVisible(!addVehicleModalVisible);
   }, [addVehicleModalVisible]);
+
+  useEffect(() => {
+    async function loadVehicles() {
+      const response = await api.get('/vehicles', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      setUserVehicles(response.data);
+      setIsLoading(false);
+    }
+
+    loadVehicles();
+  }, [token]);
 
   const handleAddVehicle = useCallback(
     async (data: IAddVehicleData) => {
@@ -61,13 +79,11 @@ const Vehicles: React.FC = () => {
           abortEarly: false,
         });
 
-        await addVehicle({
-          user_token: token,
-          vehicle: {
-            name: data.vehicle_name,
-            license_plate: data.license_plate,
-          },
-        });
+        await api.post(
+          '/vehicles/add',
+          { name: data.vehicle_name, license_plate: data.license_plate },
+          { headers: { Authorization: `Bearer ${token}` } },
+        );
 
         setAddVehicleModalVisible(!addVehicleModalVisible);
       } catch (err) {
@@ -83,23 +99,49 @@ const Vehicles: React.FC = () => {
         );
       }
     },
-    [addVehicle, token, addVehicleModalVisible],
+    [addVehicleModalVisible, token],
   );
 
   const handleRemoveVehicle = useCallback(
     async (vehicle_id: string) => {
-      await removeVehicle({
-        user_token: token,
-        vehicle_id,
+      await api.delete(`/vehicles/delete/${vehicle_id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      setUserVehicles(oldState => {
+        const vehicleIndex = oldState.findIndex(
+          vehicle => vehicle.id === vehicle_id,
+        );
+
+        oldState.splice(vehicleIndex, 1);
+
+        const newState = oldState.map(vehicle => vehicle);
+
+        return newState;
       });
     },
-    [removeVehicle, token],
+    [token],
   );
+
+  if (isLoading) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: '#1f1f1f',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <ActivityIndicator color="#29c872" size="large" />
+      </View>
+    );
+  }
 
   return (
     <Container>
       <FlatList
-        data={vehicles}
+        data={userVehicles}
         keyExtractor={item => item.license_plate}
         style={{ width: '100%' }}
         renderItem={({ item: vehicle }) => (
