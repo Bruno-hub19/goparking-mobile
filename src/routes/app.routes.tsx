@@ -17,128 +17,10 @@ import { Scanner } from '../pages/Scanner';
 import { Confirmation } from '../pages/Confirmation';
 import { Vehicles } from '../pages/Vehicles';
 
-const ScanStack = createStackNavigator();
-const ScannerStack = createStackNavigator();
-const VehiclesStack = createStackNavigator();
 const AppBottomTabs = createBottomTabNavigator();
+const AppStack = createStackNavigator();
 
-const ScanStackScreens: React.FC = () => {
-  const { signOut } = useAuth();
-
-  return (
-    <ScanStack.Navigator
-      screenOptions={{
-        title: '',
-        headerStyle: {
-          backgroundColor: '#1f1f1f',
-          elevation: 0,
-        },
-      }}
-    >
-      <ScanStack.Screen
-        name="Home"
-        component={Scan}
-        options={{
-          headerRightContainerStyle: {
-            paddingRight: 20,
-          },
-          headerRight: () => (
-            <SmallButton iconName="log-out" onPress={() => signOut()} />
-          ),
-          headerLeftContainerStyle: {
-            paddingLeft: 20,
-          },
-          headerLeft: () => (
-            <TouchableOpacity style={{ width: 30, height: 30 }}>
-              <Image
-                source={avatar}
-                style={{
-                  width: 30,
-                  height: 30,
-                  flex: 1,
-                  borderRadius: 30,
-                  resizeMode: 'contain',
-                }}
-              />
-            </TouchableOpacity>
-          ),
-        }}
-      />
-    </ScanStack.Navigator>
-  );
-};
-
-const ScannerStackScreens: React.FC = () => {
-  return (
-    <ScannerStack.Navigator
-      screenOptions={{
-        headerTintColor: '#fff',
-        headerStyle: {
-          backgroundColor: '#1f1f1f',
-          elevation: 0,
-        },
-        ...TransitionPresets.SlideFromRightIOS,
-      }}
-    >
-      <ScannerStack.Screen
-        name="Home"
-        component={Scanner}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <ScannerStack.Screen
-        name="Confirmation"
-        component={Confirmation}
-        options={{
-          title: 'Confirmação',
-        }}
-      />
-    </ScannerStack.Navigator>
-  );
-};
-
-const VehiclesStackScreens: React.FC = () => {
-  return (
-    <VehiclesStack.Navigator
-      screenOptions={{
-        headerTintColor: '#fff',
-        headerTitleAlign: 'center',
-        headerStyle: {
-          backgroundColor: '#1f1f1f',
-          elevation: 0,
-        },
-      }}
-    >
-      <VehiclesStack.Screen
-        name="Home"
-        component={Vehicles}
-        options={{
-          title: 'Veículos',
-          headerLeftContainerStyle: {
-            paddingLeft: 20,
-          },
-          headerLeft: () => (
-            <TouchableOpacity style={{ width: 30, height: 30 }}>
-              <Image
-                source={avatar}
-                style={{
-                  width: 30,
-                  height: 30,
-                  flex: 1,
-                  borderRadius: 30,
-                  resizeMode: 'contain',
-                }}
-              />
-            </TouchableOpacity>
-          ),
-        }}
-      />
-    </VehiclesStack.Navigator>
-  );
-};
-
-const AppRoutes: React.FC = () => {
+const AppBottomTabsScreens: React.FC = () => {
   return (
     <AppBottomTabs.Navigator
       initialRouteName="Scan"
@@ -147,7 +29,7 @@ const AppRoutes: React.FC = () => {
         inactiveTintColor: '#7d7d7d',
         style: {
           borderTopColor: '#2f2f2f',
-          height: 52,
+          height: 50,
         },
         tabStyle: {
           backgroundColor: '#2f2f2f',
@@ -162,7 +44,7 @@ const AppRoutes: React.FC = () => {
     >
       <AppBottomTabs.Screen
         name="Vehicles"
-        component={VehiclesStackScreens}
+        component={Vehicles}
         options={{
           tabBarLabel: 'Veículos',
           tabBarIcon: ({ focused }) => (
@@ -176,7 +58,7 @@ const AppRoutes: React.FC = () => {
       />
       <AppBottomTabs.Screen
         name="Scan"
-        component={ScanStackScreens}
+        component={Scan}
         options={{
           tabBarLabel: 'Início',
           tabBarIcon: ({ focused }) => (
@@ -190,8 +72,9 @@ const AppRoutes: React.FC = () => {
       />
       <AppBottomTabs.Screen
         name="Scanner"
-        component={ScannerStackScreens}
+        component={Scanner}
         options={{
+          tabBarLabel: 'Scanear',
           tabBarIcon: ({ focused }) => (
             <Icon
               name="maximize"
@@ -202,6 +85,49 @@ const AppRoutes: React.FC = () => {
         }}
       />
     </AppBottomTabs.Navigator>
+  );
+};
+
+const AppRoutes: React.FC = () => {
+  const { signOut } = useAuth();
+
+  return (
+    <AppStack.Navigator
+      screenOptions={{
+        title: '',
+        headerStyle: {
+          backgroundColor: '#1f1f1f',
+          elevation: 0,
+        },
+        headerRightContainerStyle: {
+          paddingRight: 20,
+        },
+        headerRight: () => (
+          <SmallButton iconName="log-out" onPress={() => signOut()} />
+        ),
+        headerLeftContainerStyle: {
+          paddingLeft: 20,
+        },
+        headerLeft: () => (
+          <TouchableOpacity style={{ width: 30, height: 30 }}>
+            <Image
+              source={avatar}
+              style={{
+                width: 30,
+                height: 30,
+                flex: 1,
+                borderRadius: 30,
+                resizeMode: 'contain',
+              }}
+            />
+          </TouchableOpacity>
+        ),
+        ...TransitionPresets.SlideFromRightIOS,
+      }}
+    >
+      <AppStack.Screen name="Home" component={AppBottomTabsScreens} />
+      <AppStack.Screen name="Confirmation" component={Confirmation} />
+    </AppStack.Navigator>
   );
 };
 
