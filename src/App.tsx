@@ -13,7 +13,7 @@ const App: React.FC = () => {
 
   return (
     <NavigationContainer>
-      <StatusBar backgroundColor="#1F1F1F" barStyle="light-content" />
+      <StatusBar backgroundColor="#1f1f1f" barStyle="light-content" />
 
       <AppProvider>
         <Routes />
