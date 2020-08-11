@@ -4,7 +4,8 @@ export const Container = styled.View`
   flex: 1;
   background: #1f1f1f;
   align-items: center;
-  padding: 0 30px;
+  justify-content: center;
+  padding: 30px;
 `;
 
 export const TopContent = styled.View`
