@@ -1,9 +1,21 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
+import { View, ActivityIndicator } from 'react-native';
 import QRCodeScanner, { Event } from 'react-native-qrcode-scanner';
+import { useNavigation } from '@react-navigation/native';
 
 import { ScannerTopContent } from '../../components/ScannerTopContent';
 
-const Scanner: React.FC = ({ navigation }: any) => {
+const Scanner: React.FC = () => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+  }, []);
+
   const onSuccess = useCallback(
     (e: Event) => {
       navigation.navigate('Confirmation', {
@@ -12,6 +24,21 @@ const Scanner: React.FC = ({ navigation }: any) => {
     },
     [navigation],
   );
+
+  if (isLoading) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: '#1f1f1f',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <ActivityIndicator color="#29c872" size="large" />
+      </View>
+    );
+  }
 
   return (
     <QRCodeScanner
