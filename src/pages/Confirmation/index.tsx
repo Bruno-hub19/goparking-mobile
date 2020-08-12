@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Image } from 'react-native';
-import DropDownPicker from 'react-native-dropdown-picker';
-import Icon from 'react-native-vector-icons/Feather';
+import { Image, FlatList } from 'react-native';
 
 import { api } from '../../services/api';
 
 import parkingIcon from '../../assets/parking-icon.png';
+import { SelectButton } from '../../components/SelectButton';
 import Button from '../../components/Button';
 
 import { useAuth } from '../../hooks/auth';
+import { usePayment } from '../../hooks/payment';
 
 import {
   Container,
@@ -43,9 +43,9 @@ const Confirmation: React.FC<IConfirmationProps> = ({ route }) => {
   const [parkingLot, setParkingLot] = useState<IParkingLotState>(
     {} as IParkingLotState,
   );
-  const [paymentValue, setPaymentValue] = useState('nothing');
 
   const { token } = useAuth();
+  const { payment, setPaymentMethod } = usePayment();
 
   useEffect(() => {
     async function loadParkingLotInformations(): Promise<void> {
@@ -78,65 +78,25 @@ const Confirmation: React.FC<IConfirmationProps> = ({ route }) => {
           <PaymentContainer>
             <PaymentTitle>Forma de pagamento</PaymentTitle>
 
-            <DropDownPicker
-              items={[
-                {
-                  label: 'Selecione uma opção',
-                  value: 'nothing',
-                  disabled: true,
-                },
-                {
-                  label: 'Débito ou Crédito',
-                  value: 'card',
-                  icon: () => (
-                    <Icon name="credit-card" size={20} color="#29C872" />
-                  ),
-                },
-                {
-                  label: 'Dinheiro',
-                  value: 'money',
-                  icon: () => (
-                    <Icon name="dollar-sign" size={20} color="#29C872" />
-                  ),
-                },
-              ]}
-              defaultValue={paymentValue}
-              containerStyle={{ height: 60, width: '100%' }}
-              style={{
-                backgroundColor: '#2f2f2f',
-                borderColor: '#2f2f2f',
-                paddingHorizontal: 30,
-              }}
-              itemStyle={{
-                paddingLeft: 20,
-                justifyContent: 'flex-start',
-              }}
-              dropDownStyle={{
-                backgroundColor: '#2f2f2f',
-                borderColor: '#2f2f2f',
-              }}
-              labelStyle={{
-                padding: 10,
-                color: '#29C872',
-                fontFamily: 'Roboto-Medium',
-                fontSize: 15,
-              }}
-              activeLabelStyle={{
-                color: '#29C872',
-              }}
-              activeItemStyle={{
-                backgroundColor: '#1f1f1f',
-                borderRadius: 5,
-              }}
-              arrowColor="#29C872"
-              onChangeItem={item => {
-                setPaymentValue(item.value);
-              }}
+            <FlatList
+              data={payment}
+              keyExtractor={pay => pay.id}
+              style={{ width: '100%' }}
+              renderItem={({ item: pay }) => (
+                <SelectButton
+                  title={pay.value}
+                  isSelected={pay.selected}
+                  onPress={() => setPaymentMethod(pay.id)}
+                  iconName={pay.iconName}
+                />
+              )}
             />
           </PaymentContainer>
 
           <VehiclesContainer>
-            <VehiclesTitle>Seu veículo atual é: Gol - ABD8900</VehiclesTitle>
+            <VehiclesTitle>
+              Escolha o veículo que deseja estacionar
+            </VehiclesTitle>
           </VehiclesContainer>
 
           <Button onPress={() => console.log('Estacionar')}>Estacionar</Button>

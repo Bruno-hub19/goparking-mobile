@@ -5,7 +5,7 @@ export const Container = styled.View`
   background: #1f1f1f;
   align-items: center;
   justify-content: center;
-  padding: 30px;
+  padding: 0 30px;
 `;
 
 export const TopContent = styled.View`
@@ -18,7 +18,7 @@ export const ParkingName = styled.Text`
   font-family: 'Roboto-Medium';
   font-size: 20px;
   color: #fff;
-  margin-top: 20px;
+  margin-top: 15px;
   text-align: center;
 `;
 
@@ -46,7 +46,6 @@ export const ParkingPrice = styled.Text`
 
 export const PaymentContainer = styled.View`
   width: 100%;
-  margin-bottom: 15px;
 `;
 
 export const PaymentTitle = styled.Text`
@@ -65,6 +64,6 @@ export const VehiclesTitle = styled.Text`
   font-family: 'Roboto-Regular';
   font-size: 15px;
   color: #ffff;
-  margin-top: 20px;
+  margin-top: 10px;
   margin-bottom: 15px;
 `;
