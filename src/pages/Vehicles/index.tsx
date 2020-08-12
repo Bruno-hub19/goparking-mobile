@@ -79,11 +79,13 @@ const Vehicles: React.FC = () => {
           abortEarly: false,
         });
 
-        await api.post(
+        const response = await api.post(
           '/vehicles/add',
           { name: data.vehicle_name, license_plate: data.license_plate },
           { headers: { Authorization: `Bearer ${token}` } },
         );
+
+        setUserVehicles(oldState => [...oldState, response.data]);
 
         setAddVehicleModalVisible(!addVehicleModalVisible);
       } catch (err) {
@@ -109,15 +111,21 @@ const Vehicles: React.FC = () => {
       });
 
       setUserVehicles(oldState => {
-        const vehicleIndex = oldState.findIndex(
+        const allVehicles = oldState.map(vehicle => {
+          return {
+            id: vehicle.id,
+            name: vehicle.name,
+            license_plate: vehicle.license_plate,
+          };
+        });
+
+        const vehicleIndex = allVehicles.findIndex(
           vehicle => vehicle.id === vehicle_id,
         );
 
-        oldState.splice(vehicleIndex, 1);
+        allVehicles.splice(vehicleIndex, 1);
 
-        const newState = oldState.map(vehicle => vehicle);
-
-        return newState;
+        return allVehicles;
       });
     },
     [token],
