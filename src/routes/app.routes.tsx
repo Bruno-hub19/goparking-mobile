@@ -92,6 +92,7 @@ const AppRoutes: React.FC = () => {
 
   return (
     <AppStack.Navigator
+      initialRouteName="Home"
       screenOptions={{
         title: '',
         headerStyle: {
