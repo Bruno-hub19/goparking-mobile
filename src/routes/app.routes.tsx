@@ -14,6 +14,7 @@ import { Scan } from '../pages/Scan';
 import { Scanner } from '../pages/Scanner';
 import { Confirmation } from '../pages/Confirmation';
 import { Vehicles } from '../pages/Vehicles';
+import { Status } from '../pages/Status';
 import { Profile } from '../pages/Profile';
 
 const AppBottomTabs = createBottomTabNavigator();
@@ -118,6 +119,7 @@ const AppRoutes: React.FC = () => {
         component={Confirmation}
         options={{ headerShown: false }}
       />
+      <AppStack.Screen name="ParkingStatus" component={Status} />
       <AppStack.Screen
         name="Profile"
         component={Profile}
