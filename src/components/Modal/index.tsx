@@ -16,8 +16,8 @@ interface ICustomModalProps {
   isVisible: boolean;
   title: string;
   description: string;
-  cancelBehavior: any;
-  confirmBehavior: any;
+  cancelBehavior?: any;
+  confirmBehavior?: any;
 }
 
 const CustomModal: React.FC<ICustomModalProps> = ({
@@ -42,18 +42,22 @@ const CustomModal: React.FC<ICustomModalProps> = ({
       backdropOpacity={0.8}
     >
       <ModalContent>
-        <ModalCancelButton onPress={cancelBehavior}>
-          <Icon name="x" color="#f55252" size={25} />
-        </ModalCancelButton>
+        {cancelBehavior && (
+          <ModalCancelButton onPress={cancelBehavior}>
+            <Icon name="x" color="#f55252" size={25} />
+          </ModalCancelButton>
+        )}
 
         <ModalTitle>{title}</ModalTitle>
         <ModalDescription>{description}</ModalDescription>
 
         <ModalChildren>{children}</ModalChildren>
 
-        <ModalConfirmButton onPress={confirmBehavior}>
-          <ButtonText>Confirmar</ButtonText>
-        </ModalConfirmButton>
+        {confirmBehavior && (
+          <ModalConfirmButton onPress={confirmBehavior}>
+            <ButtonText>Confirmar</ButtonText>
+          </ModalConfirmButton>
+        )}
       </ModalContent>
     </Modal>
   );
