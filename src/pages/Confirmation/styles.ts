@@ -1,4 +1,9 @@
-import styled from 'styled-components/native';
+import styled, { css } from 'styled-components/native';
+import FeatherIcon from 'react-native-vector-icons/Feather';
+
+interface IVehicleProps {
+  isSelected: boolean;
+}
 
 export const Container = styled.View`
   flex: 1;
@@ -10,7 +15,7 @@ export const Container = styled.View`
 
 export const TopContent = styled.View`
   width: 100%;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
 `;
 
@@ -18,8 +23,8 @@ export const ParkingName = styled.Text`
   font-family: 'Roboto-Medium';
   font-size: 20px;
   color: #fff;
-  margin-top: 15px;
   text-align: center;
+  margin-bottom: 5px;
 `;
 
 export const ParkingAddress = styled.Text`
@@ -27,6 +32,7 @@ export const ParkingAddress = styled.Text`
   font-size: 15px;
   color: #7d7d7d;
   text-align: center;
+  margin-bottom: 5px;
 `;
 
 export const ParkingPhone = styled.Text`
@@ -40,7 +46,7 @@ export const ParkingPhone = styled.Text`
 export const ParkingPrice = styled.Text`
   font-family: 'Roboto-Medium';
   font-size: 20px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   color: #29c872;
 `;
 
@@ -66,4 +72,32 @@ export const VehiclesTitle = styled.Text`
   color: #ffff;
   margin-top: 10px;
   margin-bottom: 15px;
+`;
+
+export const VehicleCard = styled.TouchableOpacity<IVehicleProps>`
+  width: 100px;
+  height: 100px;
+  background: #2f2f2f;
+  border-radius: 5px;
+  border-width: 2px;
+  border-color: #2f2f2f;
+  margin-right: 10px;
+  justify-content: center;
+  align-items: center;
+
+  ${props =>
+    props.isSelected &&
+    css`
+      border-color: #29c872;
+    `}
+`;
+
+export const VehicleInformation = styled.Text`
+  font-family: 'Roboto-Medium';
+  font-size: 15px;
+  color: #29c872;
+`;
+
+export const Icon = styled(FeatherIcon)`
+  color: #29c872;
 `;
