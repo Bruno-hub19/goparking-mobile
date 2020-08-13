@@ -123,10 +123,7 @@ const AppRoutes: React.FC = () => {
       <AppStack.Screen
         name="Profile"
         component={Profile}
-        options={{
-          headerLeft: () => <Icon name="arrow-left" size={26} color="#fff" />,
-          headerRight: undefined,
-        }}
+        options={{ headerShown: false }}
       />
     </AppStack.Navigator>
   );
