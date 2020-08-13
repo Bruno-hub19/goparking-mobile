@@ -119,11 +119,18 @@ const AppRoutes: React.FC = () => {
         component={Confirmation}
         options={{ headerShown: false }}
       />
-      <AppStack.Screen name="ParkingStatus" component={Status} />
+      <AppStack.Screen
+        name="ParkingStatus"
+        component={Status}
+        options={{ headerShown: false }}
+      />
       <AppStack.Screen
         name="Profile"
         component={Profile}
-        options={{ headerShown: false }}
+        options={{
+          headerLeft: () => <Icon name="arrow-left" size={26} color="#fff" />,
+          headerRight: undefined,
+        }}
       />
     </AppStack.Navigator>
   );
