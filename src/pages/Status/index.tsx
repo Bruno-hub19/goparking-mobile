@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { View, ActivityIndicator, Image } from 'react-native';
-// import { useNavigation, CommonActions } from '@react-navigation/native';
 
 import { useAuth } from '../../hooks/auth';
 import { api } from '../../services/api';
@@ -46,8 +45,6 @@ const Status: React.FC<IStatusProps> = ({ route }) => {
 
   const { token } = useAuth();
 
-  console.log(parkInfos.parking);
-
   useEffect(() => {
     async function getParkInfos() {
       const response = await api.get(`/park/one/${route.params.park_id}`, {
@@ -58,7 +55,7 @@ const Status: React.FC<IStatusProps> = ({ route }) => {
 
       setTimeout(() => {
         setIsLoading(false);
-      }, 2000);
+      }, 1000);
     }
 
     getParkInfos();
