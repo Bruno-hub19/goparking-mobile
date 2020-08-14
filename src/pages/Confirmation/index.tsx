@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { FlatList, Alert } from 'react-native';
+import { FlatList, Alert, View, ActivityIndicator } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import { api } from '../../services/api';
@@ -46,6 +46,7 @@ const Confirmation: React.FC<IConfirmationProps> = ({ route }) => {
   const [parkingLot, setParkingLot] = useState<IParkingLotState>(
     {} as IParkingLotState,
   );
+  const [isLoading, setIsLoading] = useState(true);
 
   const { token } = useAuth();
   const { payment, setPaymentMethod } = usePayment();
@@ -68,6 +69,10 @@ const Confirmation: React.FC<IConfirmationProps> = ({ route }) => {
       );
 
       setParkingLot(response.data);
+
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1000);
     }
 
     loadParkingLotInformations();
@@ -102,6 +107,21 @@ const Confirmation: React.FC<IConfirmationProps> = ({ route }) => {
       park_id: response.data.id,
     });
   }, [payment, route.params.parking_id, token, vehicles, navigation]);
+
+  if (isLoading) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: '#1f1f1f',
+        }}
+      >
+        <ActivityIndicator size="large" color="#29c872" />
+      </View>
+    );
+  }
 
   return (
     <Container>
