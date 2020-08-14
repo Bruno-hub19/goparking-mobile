@@ -37,28 +37,13 @@ Integrate the best technologies to facilitate parking through a functional, beau
 
 <div align="center">
 
-### Create Account
 <img src=".github/assets/screens/create-account.jpeg" width="200"/>
-
-### Login
 <img src=".github/assets/screens/login.jpeg" width="200"/>
-
-### Home
 <img src=".github/assets/screens/home.jpeg" width="200"/>
-
-### List and remove your vehicles
 <img src=".github/assets/screens/list-and-remove-vehicles.jpeg" width="200"/>
-
-### Add a new vehicle
 <img src=".github/assets/screens/add-vehicle.jpeg" width="200"/>
-
-### Scan the QR Code
 <img src=".github/assets/screens/scanner.jpeg" width="200"/>
-
-### Choose options
 <img src=".github/assets/screens/select-options.jpeg" width="200"/>
-
-### Park status
 <img src=".github/assets/screens/park-status.jpeg" width="200"/>
 
 </div>
